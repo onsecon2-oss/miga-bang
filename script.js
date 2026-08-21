@@ -31,7 +31,7 @@ function initHero() {
   if (!hero || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.set(violinWrap, { scale: 1, rotate: 0, opacity: 1, transformOrigin: '50% 50%' });
+  gsap.set(violinWrap, { scale: 1, rotationY: 0, opacity: 1, transformOrigin: '50% 50%', transformPerspective: 1600 });
   gsap.set(portraitWrap, { scale: 0.9, opacity: 0, transformOrigin: '50% 50%' });
   gsap.set(heroContent, { opacity: 0, y: 26 });
 
@@ -49,8 +49,9 @@ function initHero() {
     },
   });
 
-  // 0 -> 55%: the violin spins in place, gently shrinking
-  tl.to(violinWrap, { rotate: 620, scale: 0.72, duration: 0.55, ease: 'power1.inOut' }, 0)
+  // 0 -> 55%: the violin spins in place around its vertical axis (like a
+  // product turntable), gently shrinking as it turns
+  tl.to(violinWrap, { rotationY: 720, scale: 0.72, duration: 0.55, ease: 'power1.inOut' }, 0)
     .to(violinWrap, { opacity: 0, duration: 0.18, ease: 'power1.in' }, 0.42);
 
   // 40 -> 72%: the portrait (violin now in her hands) fades into the same spot
