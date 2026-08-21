@@ -29,44 +29,33 @@
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- INTRO SPLASH: black screen, name floating, click/scroll/enter to dismiss -->
+<div class="intro" id="introScreen">
+  <div class="intro-inner">
+    <p class="intro-eyebrow">V I O L I N I S T</p>
+    <h1 class="intro-name">MIGA BANG</h1>
+    <p class="intro-sub">방 미 가</p>
+  </div>
+  <p class="intro-hint" id="introHint">Click or Scroll</p>
+</div>
+
+<!-- HERO: calm, static — a full-bleed portrait with the name settled over it -->
 <section class="hero" id="hero">
-  <div class="hero-pin" id="heroPin">
-
-    <!-- newspaper page, textured background -->
-    <div class="np-page" id="npPage"></div>
-
-    <!-- decorative greeked text columns either side of the photo -->
-    <div class="np-col np-col-left">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="np-col np-col-right">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
-
-    <p class="np-kicker" id="npKicker">C O V E R &nbsp; S T O R Y</p>
-
-    <!-- the photo "printed" in the newspaper — this same element scales up
-         to fill the screen as the user scrolls, turning into the full
-         profile reveal -->
-    <div class="np-photo-frame" id="npPhotoFrame">
-      <img class="np-photo" id="npPhoto" src="assets/dress-violin-vertical.jpg" alt="바이올린을 든 MIGA BANG">
-    </div>
-    <p class="np-caption" id="npCaption">Miga Bang <span>— Violinist</span></p>
-
-    <div class="hero-content" id="heroContent">
-      <p class="hero-eyebrow">V I O L I N I S T</p>
-      <h1 class="hero-name">
-        <span class="line">MIGA</span>
-        <span class="line">BANG</span>
-      </h1>
-      <p class="hero-sub">방 미 가</p>
-    </div>
-
-    <div class="hero-scroll" id="heroScroll">
-      <span></span>
-      <p>Scroll</p>
-    </div>
+  <div class="hero-bg">
+    <img src="assets/dress-violin-vertical.jpg" alt="바이올린을 든 MIGA BANG">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content" id="heroContent">
+    <p class="hero-eyebrow">V I O L I N I S T</p>
+    <h1 class="hero-name">
+      <span class="line">MIGA</span>
+      <span class="line">BANG</span>
+    </h1>
+    <p class="hero-sub">방 미 가</p>
+  </div>
+  <div class="hero-scroll" id="heroScroll">
+    <span></span>
+    <p>Scroll</p>
   </div>
 </section>
 
