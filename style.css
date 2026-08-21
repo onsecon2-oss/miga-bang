@@ -90,11 +90,56 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
   will-change:transform, opacity;
   filter:drop-shadow(0 30px 50px rgba(28,26,22,.18));
 }
-.hero-violin{
-  display:block;
+
+/* Fake-3D extruded card: front + back faces plus two thin "edge" strips
+   that hinge into view as the card turns past 90/270deg, so the violin
+   reads as a solid object with real thickness instead of a flat plane
+   that vanishes edge-on. */
+:root{ --violin-depth: 26px; }
+.violin-3d{
+  position:relative;
   width:min(30vw, 320px);
-  height:auto;
+  aspect-ratio:541/1412;
+  transform-style:preserve-3d;
+}
+.violin-face{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:contain;
   backface-visibility:hidden;
+  display:block;
+}
+.violin-front{
+  transform:translateZ(calc(var(--violin-depth) / 2));
+}
+.violin-back{
+  transform:rotateY(180deg) translateZ(calc(var(--violin-depth) / 2));
+  filter:brightness(.5) saturate(.75) contrast(1.05);
+}
+.violin-edge{
+  position:absolute;top:0;
+  width:var(--violin-depth);
+  height:100%;
+  background:linear-gradient(90deg, #8a5a34 0%, #4a2e18 45%, #2a1a0d 55%, #6b4425 100%);
+  backface-visibility:hidden;
+}
+.violin-edge-right{
+  right:0;
+  transform-origin:right center;
+  transform:rotateY(90deg);
+}
+.violin-edge-left{
+  left:0;
+  transform-origin:left center;
+  transform:rotateY(-90deg);
+}
+.violin-sheen{
+  position:absolute;inset:0;
+  background:linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 62%);
+  mix-blend-mode:screen;
+  opacity:0;
+  pointer-events:none;
+  transform:translateZ(calc(var(--violin-depth) / 2 + 1px));
 }
 
 .hero-portrait-wrap{
@@ -429,5 +474,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
   .awards-grid{grid-template-columns:1fr;}
   .perf-row{grid-template-columns:60px 1fr;gap:16px;}
   .statement{padding:120px 8vw;}
-  .hero-violin,.hero-portrait{width:min(50vw, 280px);}
+  .violin-3d{width:min(50vw, 280px);}
+  .hero-portrait{width:min(50vw, 280px);}
+  :root{ --violin-depth: 16px; }
 }
