@@ -33,24 +33,35 @@
 <section class="hero" id="hero">
   <div class="hero-pin" id="heroPin">
 
-    <!-- what's revealed once the torn paper splits open -->
-    <div class="hero-reveal" id="heroReveal">
-      <div class="hero-reveal-img">
-        <img src="assets/dress-violin-vertical.jpg" alt="바이올린을 든 MIGA BANG">
-      </div>
-      <div class="hero-content" id="heroContent">
-        <p class="hero-eyebrow">V I O L I N I S T</p>
-        <h1 class="hero-name">
-          <span class="line">MIGA</span>
-          <span class="line">BANG</span>
-        </h1>
-        <p class="hero-sub">방 미 가</p>
-      </div>
+    <!-- newspaper page, textured background -->
+    <div class="np-page" id="npPage"></div>
+
+    <!-- decorative greeked text columns either side of the photo -->
+    <div class="np-col np-col-left">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="np-col np-col-right">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
 
-    <!-- torn paper covering the hero; splits top/bottom on scroll -->
-    <div class="paper-top" id="paperTop"></div>
-    <div class="paper-bottom" id="paperBottom"></div>
+    <p class="np-kicker" id="npKicker">C O V E R &nbsp; S T O R Y</p>
+
+    <!-- the photo "printed" in the newspaper — this same element scales up
+         to fill the screen as the user scrolls, turning into the full
+         profile reveal -->
+    <div class="np-photo-frame" id="npPhotoFrame">
+      <img class="np-photo" id="npPhoto" src="assets/dress-violin-vertical.jpg" alt="바이올린을 든 MIGA BANG">
+    </div>
+    <p class="np-caption" id="npCaption">Miga Bang <span>— Violinist</span></p>
+
+    <div class="hero-content" id="heroContent">
+      <p class="hero-eyebrow">V I O L I N I S T</p>
+      <h1 class="hero-name">
+        <span class="line">MIGA</span>
+        <span class="line">BANG</span>
+      </h1>
+      <p class="hero-sub">방 미 가</p>
+    </div>
 
     <div class="hero-scroll" id="heroScroll">
       <span></span>
