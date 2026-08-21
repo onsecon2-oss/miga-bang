@@ -127,18 +127,30 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
 }
 
 /* torn paper: two halves that cover the hero at rest, then peel apart
-   top/bottom on scroll, revealing what's underneath through the gap */
+   top/bottom on scroll, revealing what's underneath through the gap.
+   Background is a real photographed newsprint texture; left/right extend
+   well past the viewport edges so the slight rotation during the tear
+   never exposes a bare gap at the sides (mobile included). */
 .paper-top,
 .paper-bottom{
   position:absolute;
-  left:-2%;right:-2%;
-  height:58%;
+  left:-15%;right:-15%;
+  height:60%;
   z-index:3;
-  background:
-    repeating-linear-gradient(178deg, rgba(0,0,0,.035) 0px, rgba(0,0,0,.035) 1px, transparent 1px, transparent 3px),
-    radial-gradient(ellipse 120% 90% at 30% 20%, #efece4 0%, #e2ded2 55%, #d8d3c4 100%);
+  background-color:#e4e0d3;
+  background-repeat:no-repeat;
   will-change:transform;
   box-shadow:0 0 60px rgba(0,0,0,.25);
+}
+.paper-top{
+  background-image:url('assets/paper-texture-1.jpg');
+  background-size:cover;
+  background-position:32% 30%;
+}
+.paper-bottom{
+  background-image:url('assets/paper-texture-2.jpg');
+  background-size:cover;
+  background-position:58% 65%;
 }
 .paper-top{
   top:-2%;
@@ -164,7 +176,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
 .paper-bottom::after{
   content:'';
   position:absolute;inset:0;
-  opacity:.4;
+  opacity:.12;
   mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -461,4 +473,35 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
   .awards-grid{grid-template-columns:1fr;}
   .perf-row{grid-template-columns:60px 1fr;gap:16px;}
   .statement{padding:120px 8vw;}
+
+  /* HERO mobile: wider paper overhang so the tear's rotation never shows
+     a bare edge on narrow screens, and the name/portrait stay readable
+     without any horizontal overflow. */
+  .paper-top,
+  .paper-bottom{
+    left:-22%;right:-22%;
+    height:56%;
+  }
+  .hero-name{
+    font-size:clamp(34px, 11vw, 58px);
+  }
+  .hero-eyebrow{
+    font-size:10px;letter-spacing:.4em;
+  }
+  .hero-sub{
+    font-size:12px;letter-spacing:.5em;
+  }
+  .hero-reveal-img img{
+    object-position:center 24%;
+  }
+}
+
+@media (max-width:480px){
+  .paper-top,
+  .paper-bottom{
+    left:-32%;right:-32%;
+  }
+  .hero-name{
+    font-size:clamp(30px, 12vw, 46px);
+  }
 }
