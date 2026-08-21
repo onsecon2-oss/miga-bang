@@ -10,21 +10,21 @@ window.addEventListener('scroll', onNavScroll, { passive: true });
 onNavScroll();
 
 // ---------------------------------------------------------------------------
-// HERO: violin spins in place on a white stage, then dissolves into the
-// portrait of MIGA BANG actually holding it, and finally the name appears.
+// HERO: torn paper covering the screen peels open top/bottom on scroll.
 //
-// [0]       White stage, a single violin centered and large. Nothing else visible.
-// [0-55%]   The violin spins in place (multiple full turns) while shrinking
-//           slightly, as if being lifted and turned toward playing position.
-// [40-72%]  The violin dissolves out while the portrait of MIGA BANG holding
-//           the violin crossfades in at roughly the same spot.
-// [72-100%] The eyebrow / name / subtitle rise and fade in beneath the portrait.
+// [0]       A single sheet of torn paper fills the whole hero, edges jagged
+//           at the seam. Nothing behind it is visible yet.
+// [0-100%]  The top half lifts up and away, the bottom half drops down and
+//           away (opposite directions, slight rotation for a "torn open"
+//           feel). As the gap between them widens, MIGA BANG's portrait and
+//           name — sitting on a layer underneath the paper the whole time —
+//           become visible through the widening crack, growing into a full
+//           reveal by the time the paper has cleared the frame.
 // ---------------------------------------------------------------------------
 function initHero() {
-  const violinWrap = document.getElementById('heroViolinWrap');
-  const violin3d = document.getElementById('violin3d');
-  const violinSheen = document.querySelector('.violin-sheen');
-  const portraitWrap = document.getElementById('heroPortraitWrap');
+  const paperTop = document.getElementById('paperTop');
+  const paperBottom = document.getElementById('paperBottom');
+  const heroReveal = document.getElementById('heroReveal');
   const heroContent = document.getElementById('heroContent');
   const heroScroll = document.getElementById('heroScroll');
   const hero = document.getElementById('hero');
@@ -33,20 +33,10 @@ function initHero() {
   if (!hero || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.set(violinWrap, { scale: 1, opacity: 1, transformOrigin: '50% 50%' });
-  gsap.set(violin3d, { rotationY: 0, transformOrigin: '50% 50%', transformPerspective: 1600 });
-  gsap.set(portraitWrap, { scale: 0.9, opacity: 0, transformOrigin: '50% 50%' });
-  gsap.set(heroContent, { opacity: 0, y: 26 });
-
-  // a soft specular sheen sweeps across the wood each time a face turns
-  // toward the camera (i.e. near 0deg/360deg, not near the 90deg edge)
-  function updateSheen(rotY) {
-    if (!violinSheen) return;
-    const mod = ((rotY % 180) + 180) % 180; // 0..180, symmetric per half-turn
-    const distFromFace = Math.min(mod, 180 - mod); // 0 = facing camera, 90 = edge-on
-    const t = 1 - distFromFace / 90; // 1 at face-on, 0 at edge-on
-    violinSheen.style.opacity = String(Math.max(0, t - 0.55) * 1.8);
-  }
+  gsap.set(paperTop, { y: 0, rotate: 0, transformOrigin: '50% 0%' });
+  gsap.set(paperBottom, { y: 0, rotate: 0, transformOrigin: '50% 100%' });
+  gsap.set(heroReveal, { opacity: 0.55, scale: 1.06 });
+  gsap.set(heroContent, { opacity: 0, y: 20 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -62,24 +52,15 @@ function initHero() {
     },
   });
 
-  // 0 -> 55%: the violin spins in place around its vertical axis (like a
-  // product turntable), gently shrinking as it turns. The rotation lives on
-  // the inner .violin-3d element so front/back/edge faces stay in sync;
-  // scale/opacity live on the outer wrapper.
-  tl.to(violin3d, {
-    rotationY: 720,
-    duration: 0.55,
-    ease: 'power1.inOut',
-    onUpdate: () => updateSheen(gsap.getProperty(violin3d, 'rotationY')),
-  }, 0)
-    .to(violinWrap, { scale: 0.72, duration: 0.55, ease: 'power1.inOut' }, 0)
-    .to(violinWrap, { opacity: 0, duration: 0.18, ease: 'power1.in' }, 0.42);
+  // 0 -> 100%: the two paper halves tear apart and clear the frame
+  tl.to(paperTop, { y: '-120%', rotate: -3.5, duration: 1, ease: 'power2.inOut' }, 0)
+    .to(paperBottom, { y: '120%', rotate: 3.5, duration: 1, ease: 'power2.inOut' }, 0);
 
-  // 40 -> 72%: the portrait (violin now in her hands) fades into the same spot
-  tl.to(portraitWrap, { opacity: 1, scale: 1, duration: 0.32, ease: 'power2.out' }, 0.4);
+  // what's underneath sharpens and settles as the gap widens
+  tl.to(heroReveal, { opacity: 1, scale: 1, duration: 1, ease: 'power2.out' }, 0);
 
-  // 72 -> 100%: title rises into place beneath the portrait
-  tl.to(heroContent, { opacity: 1, y: 0, duration: 0.32, ease: 'power2.out' }, 0.72);
+  // 55 -> 100%: the name rises into place once there's enough room to read it
+  tl.to(heroContent, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.55);
 }
 
 if (document.readyState === 'loading') {

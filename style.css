@@ -77,118 +77,102 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
   width:100%;
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
-  background:radial-gradient(ellipse 70% 60% at 50% 42%, #fbfaf6 0%, var(--paper) 70%);
-  perspective:1600px;
+  background:#111;
 }
 
-.hero-violin-wrap{
-  position:absolute;
-  top:46%;left:50%;
-  z-index:3;
-  transform:translate(-50%,-50%);
-  transform-style:preserve-3d;
-  will-change:transform, opacity;
-  filter:drop-shadow(0 30px 50px rgba(28,26,22,.18));
-}
-
-/* Fake-3D extruded card: front + back faces plus two thin "edge" strips
-   that hinge into view as the card turns past 90/270deg, so the violin
-   reads as a solid object with real thickness instead of a flat plane
-   that vanishes edge-on. */
-:root{ --violin-depth: 26px; }
-.violin-3d{
-  position:relative;
-  width:min(30vw, 320px);
-  aspect-ratio:541/1412;
-  transform-style:preserve-3d;
-}
-.violin-face{
+/* what's underneath the paper: portrait + name, always full-size and
+   centered — the paper simply covers it until it splits apart */
+.hero-reveal{
   position:absolute;inset:0;
+  z-index:1;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-reveal-img{
+  position:absolute;inset:0;
+}
+.hero-reveal-img img{
   width:100%;height:100%;
-  object-fit:contain;
-  backface-visibility:hidden;
-  display:block;
+  object-fit:cover;
+  object-position:center 20%;
+  filter:grayscale(.25) brightness(.62) contrast(1.08);
 }
-.violin-front{
-  transform:translateZ(calc(var(--violin-depth) / 2));
-}
-.violin-back{
-  transform:rotateY(180deg) translateZ(calc(var(--violin-depth) / 2));
-  filter:brightness(.5) saturate(.75) contrast(1.05);
-}
-.violin-edge{
-  position:absolute;top:0;
-  width:var(--violin-depth);
-  height:100%;
-  background:linear-gradient(90deg, #8a5a34 0%, #4a2e18 45%, #2a1a0d 55%, #6b4425 100%);
-  backface-visibility:hidden;
-}
-.violin-edge-right{
-  right:0;
-  transform-origin:right center;
-  transform:rotateY(90deg);
-}
-.violin-edge-left{
-  left:0;
-  transform-origin:left center;
-  transform:rotateY(-90deg);
-}
-.violin-sheen{
+.hero-reveal-img::after{
+  content:'';
   position:absolute;inset:0;
-  background:linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 62%);
-  mix-blend-mode:screen;
-  opacity:0;
-  pointer-events:none;
-  transform:translateZ(calc(var(--violin-depth) / 2 + 1px));
-}
-
-.hero-portrait-wrap{
-  position:absolute;
-  top:48%;left:50%;
-  z-index:2;
-  transform:translate(-50%,-50%) scale(.92);
-  opacity:0;
-  will-change:transform, opacity;
-  filter:drop-shadow(0 30px 60px rgba(28,26,22,.22));
-}
-.hero-portrait{
-  display:block;
-  width:min(30vw, 360px);
-  height:auto;
-  border-radius:2px;
+  background:linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 35%, rgba(0,0,0,.55) 100%);
 }
 
 .hero-content{
-  position:absolute;
-  top:80%;left:50%;
-  transform:translate(-50%,-50%);
-  z-index:4;
+  position:relative;
+  z-index:2;
   text-align:center;
-  opacity:0;
-  will-change:opacity, transform;
 }
 .hero-eyebrow{
-  font-size:12px;letter-spacing:.5em;color:var(--ink-dim);
+  font-size:12px;letter-spacing:.5em;color:rgba(255,255,255,.6);
   margin-bottom:18px;
 }
 .hero-name{
-  font-size:clamp(40px, 7vw, 96px);
+  font-size:clamp(44px, 7.5vw, 100px);
   line-height:.95;
   font-weight:400;
   letter-spacing:.01em;
-  color:var(--ink);
+  color:#fdfbf3;
+  text-shadow:0 8px 40px rgba(0,0,0,.5);
 }
 .hero-name .line{display:block;}
 .hero-sub{
   margin-top:16px;
-  font-size:14px;letter-spacing:.6em;color:var(--ink-dim);
+  font-size:14px;letter-spacing:.6em;color:rgba(255,255,255,.55);
   padding-left:.6em;
+}
+
+/* torn paper: two halves that cover the hero at rest, then peel apart
+   top/bottom on scroll, revealing what's underneath through the gap */
+.paper-top,
+.paper-bottom{
+  position:absolute;
+  left:-2%;right:-2%;
+  height:58%;
+  z-index:3;
+  background:
+    repeating-linear-gradient(178deg, rgba(0,0,0,.035) 0px, rgba(0,0,0,.035) 1px, transparent 1px, transparent 3px),
+    radial-gradient(ellipse 120% 90% at 30% 20%, #efece4 0%, #e2ded2 55%, #d8d3c4 100%);
+  will-change:transform;
+  box-shadow:0 0 60px rgba(0,0,0,.25);
+}
+.paper-top{
+  top:-2%;
+  clip-path:polygon(
+    0 0, 100% 0, 100% 84%,
+    93% 90%, 86% 80%, 79% 92%,
+    71% 78%, 63% 90%, 55% 81%,
+    47% 91%, 39% 79%, 31% 89%,
+    23% 80%, 15% 92%, 7% 82%, 0 88%
+  );
+}
+.paper-bottom{
+  bottom:-2%;
+  clip-path:polygon(
+    0 16%, 7% 12%, 15% 20%,
+    23% 10%, 31% 19%, 39% 9%,
+    47% 21%, 55% 11%, 63% 20%,
+    71% 8%, 79% 18%, 86% 10%,
+    93% 16%, 100% 12%, 100% 100%, 0 100%
+  );
+}
+.paper-top::after,
+.paper-bottom::after{
+  content:'';
+  position:absolute;inset:0;
+  opacity:.4;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .hero-scroll{
   position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
   z-index:5;display:flex;flex-direction:column;align-items:center;gap:10px;
-  color:var(--ink-dim);
+  color:rgba(255,255,255,.6);
   opacity:0;
   animation:scrollHintFade 1.4s ease forwards .5s;
   transition:opacity .4s ease;
@@ -200,7 +184,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
 }
 .hero-scroll span::before{
   content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;
-  background:var(--ink);
+  background:#fff;
   animation:scrollLine 1.8s ease-in-out infinite;
 }
 @keyframes scrollLine{
@@ -393,8 +377,11 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
 /* GALLERY */
 .gallery{padding:0 0 140px; background:var(--paper);}
 .gallery-grid{
-  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;
   gap:4px;padding:0 4px;
+}
+.gallery-grid .gallery-item:nth-child(n+5){
+  grid-column:span 1;
 }
 .gallery .section-tag{margin:0 8vw 40px;display:block;text-align:center;padding-top:140px;}
 .gallery-item{
@@ -474,7 +461,4 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
   .awards-grid{grid-template-columns:1fr;}
   .perf-row{grid-template-columns:60px 1fr;gap:16px;}
   .statement{padding:120px 8vw;}
-  .violin-3d{width:min(50vw, 280px);}
-  .hero-portrait{width:min(50vw, 280px);}
-  :root{ --violin-depth: 16px; }
 }
