@@ -75,37 +75,18 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
   overflow:hidden;
   transition:opacity .8s ease, visibility .8s ease;
 }
-.intro-video-wrap{
-  position:relative;
-  z-index:0;
-  width:min(92vw, 1210px, calc(82vh * 1.55));
-  aspect-ratio: 31 / 20;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 40px 100px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.05);
-}
-.intro-video-wrap::after{
-  content:'';
-  position:absolute;inset:0;
-  z-index:1;
-  border-radius:18px;
-  box-shadow:inset 0 0 90px 28px rgba(8,8,8,.55);
-  pointer-events:none;
-}
 .intro-video{
-  position:absolute;inset:0;
-  width:100%;height:100%;
+  position:absolute;
+  top:0; left:0;
+  width:116%;   /* oversized and left-anchored so the overflow (with the watermark) is clipped by .intro's overflow:hidden, regardless of screen aspect ratio */
+  height:100%;
   object-fit:cover;
-  object-position:left center; /* crops the right-edge watermark out of view */
+  object-position:left center;
+  z-index:0;
 }
 .intro-inner, .intro-hint{
   position:relative;
   z-index:2;
-}
-@media (max-width:640px){
-  .intro-video-wrap{
-    width:min(76vw, 420px, calc(46vh * 1.55));
-  }
 }
 .intro.dismissed{
   opacity:0;
