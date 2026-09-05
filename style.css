@@ -104,7 +104,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
 }
 @media (max-width:640px){
   .intro-video-wrap{
-    width:min(94vw, 620px, calc(70vh * 1.55));
+    width:min(76vw, 420px, calc(46vh * 1.55));
   }
 }
 .intro.dismissed{
