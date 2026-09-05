@@ -29,12 +29,13 @@
   </div>
 </nav>
 
-<!-- INTRO SPLASH: autoplaying hero animation video (name already baked into the video itself), click anywhere to enter main site -->
+<!-- INTRO SPLASH: cropped, centered video (not full-bleed, sized near native resolution to avoid blur) — crops out the watermark, click anywhere to enter main site -->
 <div class="intro" id="introScreen">
-  <video class="intro-video" autoplay muted loop playsinline preload="auto">
-    <source src="assets/hero-animation.mp4" type="video/mp4">
-  </video>
-  <div class="intro-scrim"></div>
+  <div class="intro-video-wrap">
+    <video class="intro-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/hero-animation.mp4" type="video/mp4">
+    </video>
+  </div>
   <p class="intro-hint" id="introHint">Click to Enter</p>
 </div>
 
