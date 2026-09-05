@@ -43,19 +43,12 @@
   <p class="intro-hint" id="introHint">Click to Enter</p>
 </div>
 
-<!-- HERO: calm, static — a full-bleed portrait with the name settled over it -->
+<!-- HERO: framed autoplaying video, no name overlay — blends into the dark page background -->
 <section class="hero" id="hero">
-  <div class="hero-bg">
-    <img src="assets/dress-violin-vertical.jpg" alt="바이올린을 든 MIGA BANG">
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content" id="heroContent">
-    <p class="hero-eyebrow">V I O L I N I S T</p>
-    <h1 class="hero-name">
-      <span class="line">MIGA</span>
-      <span class="line">BANG</span>
-    </h1>
-    <p class="hero-sub">방 미 가</p>
+  <div class="hero-frame">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/hero-animation.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-scroll" id="heroScroll">
     <span></span>
