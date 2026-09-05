@@ -156,11 +156,12 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.
 }
 .hero-frame{
   position:relative;
-  width:min(84vw, 600px);
+  height:min(88vh, 880px);
+  max-width:94vw;
   aspect-ratio: 31 / 20;
   border-radius:22px;
   overflow:hidden;
-  box-shadow:0 50px 100px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06);
+  box-shadow:0 60px 130px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06);
 }
 .hero-frame::after{
   content:'';
