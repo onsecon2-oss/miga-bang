@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onsecon2-oss.github.io/miga-bang/sitemap.xml
